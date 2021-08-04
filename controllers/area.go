@@ -26,17 +26,17 @@ func (c *AreaController) GetArea() {
 	o := orm.NewOrm()
 	num, err := o.QueryTable("area").All(&areas)
 	if err != nil {
-		resp["errno"] = 4001
-		resp["errmsg"] = "query error"
+		resp["errno"] = models.RECODE_DBERR
+		resp["errmsg"] = models.RecodeText(models.RECODE_DBERR)
 		return
 	}
 	if num == 0 {
-		resp["errno"] = 4002
-		resp["errmsg"] = "there is no data"
+		resp["errno"] = models.RECODE_NODATA
+		resp["errmsg"] = models.RecodeText(models.RECODE_NODATA)
 		return
 	}
-	resp["errno"] = 0
-	resp["errmsg"] = "OK"
+	resp["errno"] = models.RECODE_OK
+	resp["errmsg"] = models.RecodeText(models.RECODE_OK)
 	resp["data"] = areas
 	fmt.Println("query data success, resp = ", resp)
 }
